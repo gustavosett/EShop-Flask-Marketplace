@@ -1,0 +1,25 @@
+{% extends 'base_page.html' %}
+
+{% block title %}roles{% endblock %}
+
+{% block content %}
+<div class="card login-box" style="margin-top: 30px;">
+  <div class="card-body login-card-body">
+    <p class="login-box-msg" style="font-size: larger;">Register a new role</p>
+    <form action="/roles" method="post">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="id" name="id" id="id">
+        <div class="input-group-append">
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <input type="name" class="form-control" placeholder="Name" name="name">
+        <div class="input-group-append">
+        </div>
+      </div>
+        <div class="col-4">
+          <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </div>
+      </div>
+    </form>
+{% endblock %} 

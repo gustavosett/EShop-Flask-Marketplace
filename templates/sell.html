@@ -1,0 +1,96 @@
+{% extends 'base_page.html' %}
+
+{% block title %}Sell a Product{% endblock %}
+
+{% block content %}
+<div class="card login-box" style="margin-bottom: 50px;">
+    <h1>Sell a Product</h1>
+    <form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea class="form-control" id="description" name="description" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" class="form-control" id="quantity" name="quantity" required>
+    </div>
+    <div class="form-group">
+        <label for="value">Value:</label>
+        <input type="number" class="form-control" id="value" name="value" step="0.01" required>
+    </div>
+    <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="in_promotion" name="in_promotion">
+        <label class="form-check-label" for="in_promotion">In Promotion</label>
+    </div>
+    <div class="form-group" id="promotion_value_container" style="display: none;">
+        <label for="promotion_value">Promotion Value:</label>
+        <input type="number" class="form-control" id="promotion_value" name="promotion_value" step="0.01">
+    </div>
+    <div class="form-group" style="margin-top: 20px;">
+        <label for="file">Pictures:</label>
+        <input type="file" class="form-control-file" id="file" name="file[]" accept="image/*" multiple>
+    </div>
+    <div id="thumbnails" class="form-group">
+        <!-- Thumbnails will be added dynamically here -->
+    </div>
+    <div class="form-group">
+      <label for="name">Tags: (you can use shift and control to select more than 1)</label>
+      <select class="form-control" multiple="multiple" id="tags" name="tags" required>
+        {% for tag in tags %}
+        <option value="{{ tag.id }}">{{ tag.name }}</option>
+        {% endfor %}
+      </select>
+  </div>
+    <div style="margin-top: 20px;">
+        <button type="submit" style="margin-bottom: 100px;" class="btn btn-primary">Submit</button>
+    </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  // Show/hide promotion value field based on checkbox value
+    document.getElementById('in_promotion').addEventListener('change', function() {
+        var container = document.getElementById('promotion_value_container');
+        container.style.display = this.checked ? 'block' : 'none';
+    });
+
+  // Show thumbnail of uploaded images
+  document.getElementById('file').addEventListener('change', function() {
+  var container = document.getElementById('thumbnails');
+  var files = this.files;
+  var limit = 4; // Limit to 4 images
+  var totalImages = container.childElementCount + files.length; // Total number of images
+  if (totalImages > limit) {
+    alert('Only up to 4 images are allowed.');
+    return;
+  }
+  for (var i = 0; i < files.length; i++) {
+    var reader = new FileReader();
+    reader.onload = function(event) {
+      var imgContainer = document.createElement('div');
+      imgContainer.style.display = 'inline-block';
+      var img = document.createElement('img');
+      img.src = event.target.result;
+      img.style.width = '100px';
+      img.style.height = '100px';
+      imgContainer.appendChild(img);
+      var button = document.createElement('button');
+      button.innerText = 'Excluir';
+      button.style.display = 'block';
+      button.addEventListener('click', function() {
+        imgContainer.remove();
+      });
+      imgContainer.appendChild(button);
+      container.appendChild(imgContainer);
+    };
+    reader.readAsDataURL(files[i]);
+  }
+});
+</script>
+{% endblock %}

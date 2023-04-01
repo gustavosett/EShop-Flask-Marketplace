@@ -1,0 +1,54 @@
+{% extends 'base_page.html' %}
+
+{% block title %}about{% endblock %}
+
+{% block content %}
+<style>
+    * {
+  box-sizing: border-box;
+}
+
+main {
+  margin: 20px;
+}
+
+.about-container {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  padding: 100px;
+}
+
+.about-container h2 {
+  font-size: 24px;
+  margin-top: 0;
+}
+
+.about-container p {
+  margin-bottom: 20px;
+  text-align: justify;
+}
+
+
+/* Responsive styles */
+
+@media screen and (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav {
+    margin-top: 20px;
+  }
+}
+</style>
+<section class="about-container">
+    <h2 class="subtitle">Where magic meets technology!</h2>
+    <div class="content">
+      <p>Our enchanted emporium is dedicated to providing the finest computing devices and accessories in all the realms. We offer a wide variety of enchanted peripherals, such as keyboards that glow in the dark and mice that can read your thoughts.</p>
+      <p>Our story begins in a time long ago, when wizards and witches roamed the earth, and technology was but a distant dream. But one man, Raphael, dared to imagine a future where magic and machines could coexist in harmony. He poured his heart and soul into creating a shop unlike any other, where customers could find the latest in computer hardware and software, as well as mystical artifacts imbued with ancient powers.</p>
+      <p>At Raphael PC Shop, you'll find everything you need to bring your digital dreams to life. From lightning-fast processors to crystal-clear displays, we've got it all. And for those seeking a truly otherworldly experience, be sure to check out our selection of magical accessories. Our crystal balls can help you see into the future, while our enchanted wands can cast spells that will make your computer do your bidding.</p>
+      <p>So come visit us at Raphael PC Shop, and discover a world of wonder and innovation. We promise you won't be disappointed!</p>
+    </div>
+  </section>
+{% endblock %}

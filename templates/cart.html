@@ -1,0 +1,93 @@
+    {% extends 'base_page.html' %}
+
+    {% block title %}cart{% endblock %}
+    
+    {% block content %}
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="crumb">
+                <a href=""><i class="fa-solid fa-house"></i>Home</a>
+                <i class="fa-solid fa-angle-right to1"></i>
+                Shop
+                <i class="fa-solid fa-angle-right to2"></i>
+                Cart
+            </div>
+        </div>
+    </div>
+    <div class="cart-main">
+      <div class="container-fluid">
+        <div class="heading">
+            <h1>Your Cart</h1>
+            <h6>There are <div class="count">{{ data['cart_len'] }}</div> products in your cart</h6>
+        </div>
+        <div class="addto-cart">
+            <table class="table table-bordered table-striped mt-5">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Product</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>SubTotal</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                    {% for item in cart.items %}
+                    <tr>
+                        <td><img src="{{ item.product.product_pictures[0].image_url }}" alt="/product/{{ item.product.id }}"></td>
+                        <td class="product-des product-name">
+                            <h6 class="mb-5"><a class="product-name" href="/product/{{ item.product.id }}">{{ item.product.name }}</a></h6>
+                            <div class="product-rate">
+                                <i class="fa-solid fa-star star"></i>
+                                <i class="fa-solid fa-star star"></i>
+                                <i class="fa-solid fa-star star"></i>
+                                <i class="fa-solid fa-star star"></i>
+                                <i class="fa-solid fa-star star"></i>
+                                <span>(5.0)</span>
+                            </div>
+                        </td>
+                        <td>
+                            {% if item.product.product_info.in_promotion %}
+                                <div class="price">
+                                    <span class="span1">${{ item.product.product_info.promotion_value }}</span>
+                                </div>
+                            {% endif %}
+                            {% if not item.product.product_info.in_promotion %}
+                                <div class="price">
+                                    <span class="span1">${{ item.unit_value }}</span>
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="detail-extra">
+                                <div class="count">
+                                    <a href="/decrease_cart/{{ item.product.id }}" class="qty-down"><i class="fa-solid fa-angle-down"></i></a>
+                                    <span class="qty-val">{{ item.quantity }}</span>
+                                    <a href="/add_cart/{{ item.product.id }}" class="qty-up"><i class="fa-solid fa-angle-up"></i></a>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="price">
+                                <span class="span1">${{ (item.unit_value * item.quantity) }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="/delete_cart/{{ item.product.id }}" class="text-body"><i class="fa-solid fa-trash-can"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="buttons">
+                <a href="/checkout">
+                  <button class="btn-checkout" type="button" href="/checkout">Checkout</button>
+                </a>
+                </div>
+        </div>
+      </div>
+
+    </div>
+    {% endblock %}
+    

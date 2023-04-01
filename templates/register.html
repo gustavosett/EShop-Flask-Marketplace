@@ -1,0 +1,89 @@
+{% extends 'base_page.html' %}
+
+{% block title %}register{% endblock %}
+
+{% block content %}
+<div class="card login-box" style="margin-top: 30px;">
+  <div class="card-body login-card-body">
+    <p class="login-box-msg" style="font-size: larger;">Register as a new user or supplier</p>
+    <form action="/register" method="post">
+      <div class="input-group mb-3">
+        <select class="form-control" name="role" id="role">
+          <option value="" disabled selected hidden>Are you a user or a supplier?</option>
+          <option value="2">User</option>
+          <option value="3">Supplier</option>
+        </select>
+      </div>
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="NISS or NIPC" name="id_number" id="id_number">
+        <div class="input-group-append">
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <input type="name" class="form-control" placeholder="Name" name="name">
+        <div class="input-group-append">
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <input type="last_name" class="form-control" placeholder="Last Name" name="last_name">
+        <div class="input-group-append">
+        </div>
+      </div>
+      <div class="phone-input-container">
+        <input type="tel" id="phone-input" placeholder="Phone Number" class="phone-input" pattern="^[+]351[0-9]{9}$" required>
+        <div class="phone-input-icon"></div>
+      </div>
+      <div class="input-group mb-3">
+        <input type="email" class="form-control" placeholder="Email" name="email">
+        <div class="input-group-append">
+          <div class="input-group-text">
+            <span class="fas fa-envelope"></span>
+          </div>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <input type="password" class="form-control" placeholder="Password" name="password">
+        <div class="input-group-append">
+          <div class="input-group-text">
+            <span class="fas fa-lock"></span>
+          </div>
+        </div>
+      </div>
+      <div class="input-group mb-3">
+        <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password">
+        <div class="input-group-append">
+          <div class="input-group-text">
+            <span class="fas fa-lock"></span>
+          </div>
+        </div>
+      </div>
+    
+      <div class="row">
+        <!-- /.col -->
+        <div class="col-4">
+          <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
+    
+    <p class="mb-0">
+      <a href="login" class="text-center">Already have an account? Login here.</a>
+    </p>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+    $('#role').change(function() {
+      var role = $(this).val();
+      if (role == '2') {
+        $('#id_number').attr('placeholder', 'NISS');
+      } else if (role == '3') {
+        $('#id_number').attr('placeholder', 'NIPC');
+      } else {
+        $('#id_number').attr('placeholder', 'NISS or NIPC');
+      }
+    });
+  });
+  </script>
+{% endblock %} 

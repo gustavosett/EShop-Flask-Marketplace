@@ -1,0 +1,72 @@
+{% extends 'base_page.html' %}
+
+{% block title %}home{% endblock %}
+
+
+{% block content %}
+<section id="section2">
+  <div class="container-fluid">
+    <div class="h2 text-center mb-5 mt-5">
+      <h2 class="first-h2">Trending Items</h2>
+    </div>
+    <div class="row justify-content-between">
+      {% if products %}
+      {% for product in products %}
+      <div class="col-lg-1-5 col-12">
+        <div class="product">
+          <div class="top">
+            <a href="/product/{{ product.id }}">
+              {% for i in range(2) %}
+              {% if product.product_pictures[i] %}
+              <img class="img{{ i+1 }}" src="{{ product.product_pictures[i].image_url }}" alt="{{ product.name }}">
+              {% elif 3 > i %}
+              <img class="img{{ i+1 }}" src="{{ product.product_pictures[i-1].image_url }}" alt="{{ product.name }}">
+              {% endif %}
+              {% endfor %}
+              <div class="product-badge">
+                <span>Hot</span>
+              </div>
+            </a>
+            <div class="product-action">
+              <a href="/add_wishlist/{{ product.id }}"><i class="fa-solid fa-heart"></i> <span>Add To
+                  Wishlist</span></a>
+              <a href="/add_cart/{{ product.id }}"><i class="fa-solid fa-cart-shopping"></i><span>Add To Cart</span></a>
+            </div>
+          </div>
+          <div class="bottom">
+            <a href="/product/{{ product.id }}">
+              <h2 class="prod-name">{{ product.name }}</h2>
+            </a>
+            <div class="product-rate">
+              <i class="fa-solid fa-star star"></i>
+              <i class="fa-solid fa-star star"></i>
+              <i class="fa-solid fa-star star"></i>
+              <i class="fa-solid fa-star star"></i>
+              <i class="fa-solid fa-star star"></i>
+              <span>(5.0)</span>
+            </div>
+            <span>By {{ product.product_info[0].user.name }}</span>
+            <div class="product-bottom d-flex align-items-center justify-content-between">
+              <div class="product-price d-flex align-items-center">
+                {% if product.product_info[0].in_promotion %}
+                <span>$ {{ product.product_info[0].promotion_value }}</span>
+                <del>$ {{ product.product_info[0].value }}</del>
+                {% endif %}
+                {% if not product.product_info[0].in_promotion %}
+                <span>$ {{ product.product_info[0].value }}</span>
+                {% endif %}
+              </div>
+              <div class="add-cart">
+                <a href="/add_cart/{{ product.id }}"><i class="fa-solid fa-cart-shopping"></i>
+                  <span>Cart</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

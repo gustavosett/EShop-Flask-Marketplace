@@ -1,0 +1,21 @@
+{% extends 'base_page.html' %}
+
+{% block title %}tags{% endblock %}
+
+{% block content %}
+<div class="card login-box" style="margin-top: 30px;">
+  <div>
+    <p class="login-box-msg" style="font-size: larger;">Register a new tag</p>
+    <form action="/tags" method="post">
+      </div>
+      <div class="input-group mb-3">
+        <input type="name" class="form-control" placeholder="Name" name="name">
+        <div class="input-group-append">
+        </div>
+      </div>
+        <div class="col-4">
+          <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </div>
+      </div>
+    </form>
+{% endblock %} 

@@ -1,0 +1,142 @@
+{% extends 'base_page.html' %}
+
+{% block title %}account{% endblock %}
+
+{% block content %}
+<section id="section2">
+    <div class="container">
+        {% if role == 1 %}
+        <!-- Admin Section -->
+        <div class="row">
+            <div class="col-12 text-center mb-3">
+                <h2>Statistics</h2>
+            </div>
+            <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in sales %}
+                        <tr>
+                            <th scope="row">#{{ order.id }}</th>
+                            <td>Pending...</td>
+                            <td>{{ order.created_at }}</td>
+                            <td>{{ order.total_value }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+        {% elif role == 3 %}
+        <!-- Supplier Section -->
+        <div class="row">
+            <div class="col-12 text-center mb-3">
+                <h2>Sales Charts / Statistics</h2>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center mb-3">
+                    <h2>Statistics</h2>
+                </div>
+                <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for order in sales %}
+                            <tr>
+                                <th scope="row">#{{ order.id }}</th>
+                                <td>Pending...</td>
+                                <td>{{ order.created_at }}</td>
+                                <td>{{ order.total_value }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+        {% endif %}
+        {% if role == 1 %}
+        <div class="row">
+            <div class="col-12 text-center mb-3">
+                <h2>Low Stock Products</h2>
+            </div>
+            {% if products %}
+            <div class="row">
+                {% for product in products %}
+                <div class="col-lg-1-5 col-12 mb-3">
+                    <div class="product">
+                        <div class="top">
+                            <img class="img1" src="{{ product.product_pictures[0].image_url }}"
+                                alt="{{ product.name }}">
+                            <img class="img2" src="{{ product.product_pictures[1].image_url }}"
+                                alt="{{ product.name }}">
+                        </div>
+                        <div class="bottom">
+                            <h2 class="prod-name">{{ product.name }}</h2>
+                            <div>
+                                {% if product.product_info[0].quantity > 0 %}
+                                    <h5>LAST {{ product.product_info[0].quantity }} PIECES!</h2>
+                                {% else %}
+                                    <h5>OUT OF STOCK!!</h5>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-12 text-center mb-3">
+                <h2>Order Status</h2>
+            </div>
+            <div class="col-12">
+                <ul>
+                    {% for order in orders %}
+                    <li>Order #{{ order.id }} - Status: Pending</li>
+                    <span>% {{order.total_value}}</span>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        {% if role == 1 or role == 3 %}
+        <div class="row">
+            <div class="col-12 text-center mb-3">
+                <h2>Sales Status</h2>
+            </div>
+            <div class="col-12">
+                <ul>
+                    {% for order in sales %}
+                    <li>Order #{{ order.id }} - Status: Pending</li>
+                    <span>% {{order.total_value}}</span>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-12 text-center mb-3">
+                <h2>Wallet Balance</h2>
+            </div>
+            <div class="col-12 text-center mb-3">
+                <h2>${{ balance }}</h2>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
